@@ -105,7 +105,7 @@ const server = app.listen(PORT, HOSTNAME, () => {
   console.log(`- DIR     : ${storageDirPath}`);
   console.log(`Server started : http://${HOSTNAME}:${PORT}`);
 
-  const LT_ENABLED = process.env.LT_ENABLED || false;
+  const LT_ENABLED = (process.env.LT_ENABLED || 'false') === 'true';
   if (LT_ENABLED) {
     localtunnel({
       port: PORT
