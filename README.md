@@ -1,5 +1,8 @@
 # Http Send Receive files
 
+[![npm version](https://img.shields.io/npm/v/http-send-receive-files.svg?style=flat-square)](https://www.npmjs.com/package/http-send-receive-files)
+[![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=http-send-receive-files&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.now.sh/result?p=http-send-receive-files)
+
 Simply send or receive files from a remote server to your local PC via HTTP.
 It is useful when you don't have an easy access to a remote server (ie a linux provided via a citrix on windows).
 
