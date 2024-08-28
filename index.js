@@ -4,6 +4,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const localtunnel = require('localtunnel');
+const https = require('https');
 
 const STORAGE_DIR = process.env.DIR || 'storage';
 const storageDirPath = path.isAbsolute(STORAGE_DIR) ? STORAGE_DIR : path.join(__dirname, STORAGE_DIR);
@@ -96,10 +98,41 @@ app.get('/download', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 3000;
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
-app.listen(PORT, HOSTNAME, () => {
+const server = app.listen(PORT, HOSTNAME, () => {
   console.log('Configuration:');
   console.log(`- HOSTNAME: ${HOSTNAME}`);
   console.log(`- PORT    : ${PORT}`);
   console.log(`- DIR     : ${storageDirPath}`);
-  console.log(`Server started: http://${HOSTNAME}:${PORT}`);
+  console.log(`Server started : http://${HOSTNAME}:${PORT}`);
+
+  const LT_ENABLED = process.env.LT_ENABLED || false;
+  if (LT_ENABLED) {
+    localtunnel({
+      port: PORT
+    }, (err, tunnel) => {
+      if (err) {
+        console.error('Error starting localtunnel:', err);
+        process.exit(2);
+      }
+      console.log(`Tunnel started : ${tunnel.url}`);
+
+      https.get('https://loca.lt/mytunnelpassword', res =>
+        res.on('data', d => console.log(`Tunnel password: ${d}`)));
+
+      // Cleanup
+      const cleanup = () => {
+        console.log('Closing tunnel...');
+        tunnel.close();
+        console.log('Closing server...');
+        server.close(() => {
+          console.log('Server and tunnel closed');
+          process.exit(0);
+        });
+      };
+      process.on('SIGINT', cleanup);
+      process.on('SIGTERM', cleanup);
+    });
+  } else {
+    console.log(`Tunnel not started`);
+  }
 });

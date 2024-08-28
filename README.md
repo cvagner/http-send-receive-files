@@ -53,20 +53,14 @@ HOSTNAME=0.0.0.0 PORT=3000 DIR=storage hsrf
 
 ## Tunneling
 
-If you want to enable remote access when your server and your PC is not a the same network, use a tunneling system like `grok` or `localtunnel`. Example :
+If you want to enable remote access when your server and your PC is not a the same network, use a tunneling system.
+
+Localtunnel is embedded and you can activate it with `LT_ENABLED` environment variable :
 ```sh
-# Check public IP which will be the password of the tunnel
-curl https://loca.lt/mytunnelpassword
-# curl ipv4.icanhazip.com
-
-# Install localtunnel if needed
-npm install -g localtunnel
-
-# Start tunneling
-lt --port 3000
+LT_ENABLED=true hsrf
 ```
 
-Open the provided link in a browser on the remote system if you are able to and provide tunnel password (your public IP address, ie open https://loca.lt/mytunnelpassword).
+It logs the tunnel URL and password which is your public IP. Open the provided link in a browser on the remote system if you are able to and provide tunnel password.
 
 Or with `curl` on your remote server (here bypassing localtunnel reminder and with a virtual `mysubdomain` subdomain):
 ```sh
