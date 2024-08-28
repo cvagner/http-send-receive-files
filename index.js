@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
     }
 
     const fileList = files
-      .filter(file => file !== '.gitignore')
+      .filter(file => file !== '.gitignore' && file !== '.npmignore')
       .map(file => `<li><a href="/download?filename=${encodeURIComponent(file)}">${file}</a></li>`)
       .join('');
 
