@@ -96,7 +96,3 @@ npm version patch
 # Publish
 npm publish
 ```
-
-## Improvement (TODO)
-
-- config (`host` option of localtunnel) custom localtunnel server
