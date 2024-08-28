@@ -8,7 +8,7 @@ It is useful when you don't have an easy access to a remote server (ie a linux p
 
 ## Install and usage
 
-Global installation:
+Global installation or update:
 ```sh
 npm install -g http-send-receive-files
 ```
@@ -19,7 +19,10 @@ Usage:
 hsrf
 
 # Override values
-LT_ENABLED=false HOSTNAME=0.0.0.0 PORT=3000 DIR=storage hsrf
+HOSTNAME=0.0.0.0 PORT=3000 \
+  DIR=storage \
+  LT_ENABLED=false LT_SUBDOMAIN= LT_HOST= \
+  hsrf
 ```
 
 For tunneling, see next.
@@ -32,6 +35,10 @@ Localtunnel is embedded and you can activate it with `LT_ENABLED` environment va
 ```sh
 LT_ENABLED=true hsrf
 ```
+
+If you want a specific subdomain, set `LT_SUBDOMAIN` environment variable.
+
+Default localtunnel server is `https://localtunnel.me`. You can override it with `LT_HOST` environment variable.
 
 It logs the tunnel URL and password which is your public IP. Open the provided link in a browser on the remote system if you are able to and provide tunnel password.
 
@@ -92,5 +99,4 @@ npm publish
 
 ## Improvement (TODO)
 
-- config subdomain (`subdomain` option of localtunnel)
 - config (`host` option of localtunnel) custom localtunnel server

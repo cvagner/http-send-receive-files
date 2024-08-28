@@ -99,18 +99,29 @@ app.get('/download', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 3000;
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
+const LT_ENABLED = (process.env.LT_ENABLED || 'false') === 'true';
+const LT_HOST = process.env.LT_HOST;
+const LT_SUBDOMAIN = process.env.LT_SUBDOMAIN;
 const server = app.listen(PORT, HOSTNAME, () => {
   console.log(`Version ${packageInfo.version}`);
-  console.log('Configuration:');
+  console.log('');
+  console.log('Server configuration:');
   console.log(`- HOSTNAME: ${HOSTNAME}`);
   console.log(`- PORT    : ${PORT}`);
   console.log(`- DIR     : ${storageDirPath}`);
+  console.log('');
+  console.log('Tunnel configuration:');
+  console.log(`- LT_ENABLED  : ${LT_ENABLED}`);
+  console.log(`- LT_HOST     : ${LT_HOST}`);
+  console.log(`- LT_SUBDOMAIN: ${LT_SUBDOMAIN}`);
+  console.log('');
   console.log(`Server started : http://${HOSTNAME}:${PORT}`);
 
-  const LT_ENABLED = (process.env.LT_ENABLED || 'false') === 'true';
   if (LT_ENABLED) {
     localtunnel({
-      port: PORT
+      port: PORT,
+      host: LT_HOST,
+      subdomain: LT_SUBDOMAIN,
     }, (err, tunnel) => {
       if (err) {
         console.error('Error starting localtunnel:', err);
