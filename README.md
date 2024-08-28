@@ -76,3 +76,8 @@ curl \
   --remote-name --remote-header-name \
   "https://mysubdomain.loca.lt/download?filename=example.txt"
 ```
+
+## Improvement (TODO)
+
+- config subdomain (`subdomain` option of localtunnel)
+- config (`host` option of localtunnel) custom localtunnel server
