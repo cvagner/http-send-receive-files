@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://cvagner/http-send-receive-files.git"
+    "url": "https://github.com/cvagner/http-send-receive-files.git"
   },
   "main": "index.js",
   "bin": {
