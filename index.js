@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const localtunnel = require('localtunnel');
 const https = require('https');
+const packageInfo = require('./package.json');
 
 const STORAGE_DIR = process.env.DIR || 'storage';
 const storageDirPath = path.isAbsolute(STORAGE_DIR) ? STORAGE_DIR : path.join(__dirname, STORAGE_DIR);
@@ -99,6 +100,7 @@ app.get('/download', (req, res) => {
 const PORT = process.env.PORT || 3000;
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
 const server = app.listen(PORT, HOSTNAME, () => {
+  console.log(`Version ${packageInfo.version}`);
   console.log('Configuration:');
   console.log(`- HOSTNAME: ${HOSTNAME}`);
   console.log(`- PORT    : ${PORT}`);
